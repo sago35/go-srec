@@ -24,6 +24,42 @@ type Srec struct {
 	Checksum byte
 }
 
+// NewS1 ...
+func NewS1(address uint32, data []byte) *Srec {
+	s := &Srec{
+		Type:    s1,
+		Length:  2 + len(data) + 1,
+		Address: address,
+		Data:    data,
+	}
+	s.Checksum = s.CalcChecksum()
+	return s
+}
+
+// NewS2 ...
+func NewS2(address uint32, data []byte) *Srec {
+	s := &Srec{
+		Type:    s2,
+		Length:  3 + len(data) + 1,
+		Address: address,
+		Data:    data,
+	}
+	s.Checksum = s.CalcChecksum()
+	return s
+}
+
+// NewS3 ...
+func NewS3(address uint32, data []byte) *Srec {
+	s := &Srec{
+		Type:    s3,
+		Length:  4 + len(data) + 1,
+		Address: address,
+		Data:    data,
+	}
+	s.Checksum = s.CalcChecksum()
+	return s
+}
+
 // NewScanner ...
 func NewScanner(r io.Reader) *Scanner {
 	return &Scanner{
